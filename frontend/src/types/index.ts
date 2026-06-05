@@ -5,6 +5,8 @@ export interface Child {
   name: string;
   birth_year: number;
   avatar: string;
+  gender: string | null;
+  preferred_cycle: string | null;
   cycle: Cycle;
 }
 

@@ -10,8 +10,10 @@ from app.schemas.child import ChildCreate, ChildOut
 router = APIRouter(prefix="/children", tags=["children"])
 
 
-def get_cycle(birth_year: int) -> str:
-    age = datetime.utcnow().year - birth_year
+def get_cycle(child: Child) -> str:
+    if child.preferred_cycle:
+        return child.preferred_cycle
+    age = datetime.utcnow().year - child.birth_year
     if age <= 3:
         return Cycle.eveil
     elif age <= 6:
@@ -22,7 +24,7 @@ def get_cycle(birth_year: int) -> str:
 @router.get("/", response_model=list[ChildOut])
 def list_children(parent: Parent = Depends(get_current_parent), session: Session = Depends(get_session)):
     children = session.exec(select(Child).where(Child.parent_id == parent.id)).all()
-    return [ChildOut(**c.model_dump(), cycle=get_cycle(c.birth_year)) for c in children]
+    return [ChildOut(**c.model_dump(), cycle=get_cycle(c)) for c in children]
 
 
 @router.post("/", response_model=ChildOut, status_code=201)
@@ -31,7 +33,7 @@ def create_child(data: ChildCreate, parent: Parent = Depends(get_current_parent)
     session.add(child)
     session.commit()
     session.refresh(child)
-    return ChildOut(**child.model_dump(), cycle=get_cycle(child.birth_year))
+    return ChildOut(**child.model_dump(), cycle=get_cycle(child))
 
 
 @router.delete("/{child_id}", status_code=204)

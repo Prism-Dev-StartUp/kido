@@ -16,8 +16,10 @@ class Parent(SQLModel, table=True):
 class Child(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
-    avatar: str = "default"
+    avatar: str = "🧒"
     birth_year: int
+    gender: Optional[str] = None          # "boy" | "girl" | "other"
+    preferred_cycle: Optional[str] = None  # override auto-detection from age
     parent_id: int = Field(foreign_key="parent.id")
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
