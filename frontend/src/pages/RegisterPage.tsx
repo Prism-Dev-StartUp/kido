@@ -51,7 +51,7 @@ export default function RegisterPage() {
 
           <div className="bg-white rounded-3xl shadow-xl p-8 border border-pink-50">
             <h2 className="font-fredoka text-3xl text-gray-800 mb-1">Créer un compte</h2>
-            <p className="text-gray-400 text-sm font-semibold mb-8">Quelques secondes suffisent ✨</p>
+            <p className="text-gray-400 text-sm font-semibold mb-8">Quelques secondes suffisent</p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -89,7 +89,7 @@ export default function RegisterPage() {
 
               {error && (
                 <div className="bg-red-50 border border-red-100 text-red-500 text-sm font-semibold px-4 py-3 rounded-2xl">
-                  ⚠️ {error}
+                  {error}
                 </div>
               )}
 
@@ -99,7 +99,7 @@ export default function RegisterPage() {
                 className="w-full text-white font-extrabold py-4 rounded-2xl text-base hover:opacity-90 transition-all hover:-translate-y-0.5 disabled:opacity-50 shadow-lg shadow-pink-200"
                 style={{ background: "linear-gradient(135deg, #ec4899, #a855f7)" }}
               >
-                {loading ? "Création..." : "Créer mon compte 🎉"}
+                {loading ? "Création..." : "Créer mon compte"}
               </button>
             </form>
 

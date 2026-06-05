@@ -6,10 +6,10 @@ import { useAuth } from "../contexts/AuthContext";
 import { Child } from "../types";
 import ChildFormModal from "../components/ChildFormModal";
 
-const CYCLE_STYLES: Record<string, { gradient: string; badge: string; label: string; emoji: string }> = {
-  eveil:      { gradient: "from-pink-400 via-rose-400 to-fuchsia-500",    badge: "bg-pink-100 text-pink-600",       label: "Éveil",      emoji: "🌱" },
-  maternelle: { gradient: "from-violet-400 via-purple-500 to-indigo-500", badge: "bg-violet-100 text-violet-600",   label: "Maternelle", emoji: "🎈" },
-  primaire:   { gradient: "from-cyan-400 via-sky-500 to-blue-500",        badge: "bg-cyan-100 text-cyan-700",       label: "Primaire",   emoji: "🚀" },
+const CYCLE_STYLES: Record<string, { gradient: string; badge: string; label: string }> = {
+  eveil:      { gradient: "from-pink-400 via-rose-400 to-fuchsia-500",    badge: "bg-pink-100 text-pink-600",       label: "Éveil" },
+  maternelle: { gradient: "from-violet-400 via-purple-500 to-indigo-500", badge: "bg-violet-100 text-violet-600",   label: "Maternelle" },
+  primaire:   { gradient: "from-cyan-400 via-sky-500 to-blue-500",        badge: "bg-cyan-100 text-cyan-700",       label: "Primaire" },
 };
 
 export default function DashboardPage() {
@@ -53,7 +53,7 @@ export default function DashboardPage() {
       <main className="max-w-4xl mx-auto px-6 py-10">
         {/* Title */}
         <div className="mb-10">
-          <h1 className="font-fredoka text-4xl text-gray-800 mb-1">Qui joue aujourd'hui ? 🎮</h1>
+          <h1 className="font-fredoka text-4xl text-gray-800 mb-1">Qui joue aujourd'hui ?</h1>
           <p className="text-gray-400 font-semibold">Choisis un profil pour commencer les activités</p>
         </div>
 
@@ -86,7 +86,7 @@ export default function DashboardPage() {
                     {child.gender === "boy" ? " · 👦" : child.gender === "girl" ? " · 👧" : ""}
                   </p>
                   <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${style.badge}`}>
-                    {style.emoji} {style.label}
+                    {style.label}
                   </span>
                 </div>
               </button>

@@ -63,7 +63,7 @@ export default function CyclePage() {
             {/* Info */}
             <div className="flex-1">
               <p className="text-white/70 font-bold text-sm uppercase tracking-wider mb-1">
-                {meta.icon} {meta.label} · {meta.ages}
+                {meta.label} · {meta.ages}
               </p>
               <h1 className="font-fredoka text-4xl text-white">{activeChild.name}</h1>
             </div>

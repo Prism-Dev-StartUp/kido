@@ -185,7 +185,7 @@ export default function ChildFormModal({ onClose, onSubmit }: Props) {
                     disabled={loading}
                     className="flex-1 kido-gradient text-white font-extrabold py-4 rounded-2xl hover:opacity-90 transition disabled:opacity-40 shadow-lg shadow-purple-200"
                   >
-                    {loading ? "..." : "Créer le profil 🎉"}
+                    {loading ? "..." : "Créer le profil"}
                   </button>
                 </div>
               </>

@@ -97,15 +97,14 @@ export default function GamePage() {
             <h2 className="font-fredoka text-4xl text-white mb-2">{game.title}</h2>
             <p className="text-gray-400 font-semibold mb-1">{game.description}</p>
             <p className="text-gray-500 text-sm mb-10">
-              {game.skill.icon} {game.skill.name} &nbsp;·&nbsp;
-              {"⭐".repeat(game.difficulty)}{"☆".repeat(3 - game.difficulty)}
+              {game.skill.name}
             </p>
             <button
               onClick={startGame}
               className={`bg-gradient-to-r ${grad} text-white font-extrabold px-14 py-5 rounded-2xl text-xl shadow-2xl hover:opacity-90 hover:scale-105 transition-all`}
               style={{ fontFamily: "'Nunito', sans-serif" }}
             >
-              C'est parti ! 🎮
+              C'est parti !
             </button>
           </div>
         )}
@@ -145,7 +144,7 @@ export default function GamePage() {
                 onClick={() => setState("intro")}
                 className="border-2 border-gray-700 text-gray-300 hover:border-gray-500 font-bold px-6 py-3 rounded-2xl transition"
               >
-                🔄 Rejouer
+                Rejouer
               </button>
               <button
                 onClick={() => navigate(-1)}

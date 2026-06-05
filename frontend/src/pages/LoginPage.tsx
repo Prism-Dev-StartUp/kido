@@ -36,12 +36,6 @@ export default function LoginPage() {
           <p className="text-white/80 text-xl font-nunito font-700 leading-relaxed">
             La plateforme Montessori<br />qui fait apprendre en jouant
           </p>
-          <div className="flex justify-center gap-4 mt-10 text-5xl">
-            <span className="animate-[bounce_1s_ease-in-out_infinite]">🎨</span>
-            <span className="animate-[bounce_1.2s_ease-in-out_infinite]">🔢</span>
-            <span className="animate-[bounce_0.9s_ease-in-out_infinite]">🎮</span>
-            <span className="animate-[bounce_1.1s_ease-in-out_infinite]">📚</span>
-          </div>
         </div>
       </div>
 
@@ -84,7 +78,7 @@ export default function LoginPage() {
 
               {error && (
                 <div className="bg-red-50 border border-red-100 text-red-500 text-sm font-semibold px-4 py-3 rounded-2xl">
-                  ⚠️ {error}
+                  {error}
                 </div>
               )}
 
@@ -93,7 +87,7 @@ export default function LoginPage() {
                 disabled={loading}
                 className="w-full kido-gradient text-white font-extrabold py-4 rounded-2xl text-base hover:opacity-90 transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-200"
               >
-                {loading ? "Connexion..." : "Se connecter 🚀"}
+                {loading ? "Connexion..." : "Se connecter"}
               </button>
             </form>
 

@@ -32,8 +32,8 @@ export default function GameCard({ game, progress }: Props) {
         <div className="absolute -bottom-6 -left-4 w-24 h-24 bg-white/10 rounded-full" />
         <span className="text-6xl drop-shadow-md relative z-10">{game.thumbnail}</span>
         {progress?.completed && (
-          <div className="absolute top-3 right-3 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-md text-base z-10">
-            ✅
+          <div className="absolute top-3 right-3 bg-white/90 rounded-full px-2 py-0.5 text-xs font-extrabold text-emerald-600 shadow-md z-10">
+            Fait
           </div>
         )}
       </div>
@@ -70,7 +70,7 @@ export default function GameCard({ game, progress }: Props) {
           className={`w-full bg-gradient-to-r ${grad} text-white font-extrabold py-3 rounded-2xl text-sm hover:opacity-90 transition shadow-md`}
           style={{ fontFamily: "'Nunito', sans-serif" }}
         >
-          {progress?.completed ? "🔄 Rejouer" : "▶ Jouer"}
+          {progress?.completed ? "Rejouer" : "Jouer"}
         </button>
       </div>
     </div>
