@@ -6,10 +6,10 @@ import { useAuth } from "../contexts/AuthContext";
 import { Child } from "../types";
 import ChildFormModal from "../components/ChildFormModal";
 
-const CYCLE_STYLES: Record<string, { bg: string; badge: string; label: string }> = {
-  eveil:      { bg: "from-pink-200 to-rose-200",     badge: "bg-pink-100 text-pink-600",     label: "Éveil" },
-  maternelle: { bg: "from-sky-200 to-blue-200",      badge: "bg-sky-100 text-sky-600",       label: "Maternelle" },
-  primaire:   { bg: "from-emerald-200 to-green-200", badge: "bg-emerald-100 text-emerald-600", label: "Primaire" },
+const CYCLE_STYLES: Record<string, { gradient: string; badge: string; label: string; emoji: string }> = {
+  eveil:      { gradient: "from-pink-400 via-rose-400 to-fuchsia-500",    badge: "bg-pink-100 text-pink-600",       label: "Éveil",      emoji: "🌱" },
+  maternelle: { gradient: "from-violet-400 via-purple-500 to-indigo-500", badge: "bg-violet-100 text-violet-600",   label: "Maternelle", emoji: "🎈" },
+  primaire:   { gradient: "from-cyan-400 via-sky-500 to-blue-500",        badge: "bg-cyan-100 text-cyan-700",       label: "Primaire",   emoji: "🚀" },
 };
 
 export default function DashboardPage() {
@@ -35,25 +35,30 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
+    <div className="min-h-screen bg-[#F5F3FF]">
       {/* Header */}
-      <header className="flex justify-between items-center px-8 py-5 bg-white/70 backdrop-blur-sm border-b border-amber-100">
+      <header className="kido-gradient px-8 py-4 flex justify-between items-center shadow-lg shadow-purple-200">
         <div className="flex items-center gap-3">
           <span className="text-3xl">🌟</span>
-          <span className="text-2xl font-extrabold text-amber-600 tracking-tight">Kido</span>
+          <span className="font-fredoka text-white text-3xl tracking-wide">Kido</span>
         </div>
-        <button onClick={logout} className="text-sm text-gray-400 hover:text-gray-600 transition">
+        <button
+          onClick={logout}
+          className="text-white/70 hover:text-white text-sm font-bold transition"
+        >
           Déconnexion
         </button>
       </header>
 
       <main className="max-w-4xl mx-auto px-6 py-10">
-        <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-800">Qui joue aujourd'hui ?</h1>
-          <p className="text-gray-400 mt-1">Choisis un profil pour commencer les activités</p>
+        {/* Title */}
+        <div className="mb-10">
+          <h1 className="font-fredoka text-4xl text-gray-800 mb-1">Qui joue aujourd'hui ? 🎮</h1>
+          <p className="text-gray-400 font-semibold">Choisis un profil pour commencer les activités</p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-5">
+        {/* Children grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
           {children.map((child) => {
             const style = CYCLE_STYLES[child.cycle];
             const age = new Date().getFullYear() - child.birth_year;
@@ -61,35 +66,44 @@ export default function DashboardPage() {
               <button
                 key={child.id}
                 onClick={() => selectChild(child)}
-                className="group bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-200 hover:-translate-y-1 overflow-hidden text-left"
+                className="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl hover:shadow-purple-100 transition-all duration-300 hover:-translate-y-2 text-left"
               >
-                {/* Avatar banner */}
-                <div className={`bg-gradient-to-br ${style.bg} h-28 flex items-center justify-center`}>
-                  <span className="text-6xl group-hover:scale-110 transition-transform duration-200">
+                {/* Avatar zone */}
+                <div className={`bg-gradient-to-br ${style.gradient} h-36 flex items-center justify-center relative overflow-hidden`}>
+                  {/* Decorative circles */}
+                  <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/10 rounded-full" />
+                  <div className="absolute -bottom-6 -left-6 w-28 h-28 bg-white/10 rounded-full" />
+                  <span className="text-7xl relative z-10 group-hover:scale-110 transition-transform duration-300 drop-shadow-lg">
                     {child.avatar}
                   </span>
                 </div>
+
                 {/* Info */}
-                <div className="p-4">
-                  <p className="font-extrabold text-gray-800 text-lg">{child.name}</p>
-                  <p className="text-sm text-gray-400">{age} an{age > 1 ? "s" : ""}</p>
-                  <div className="mt-2">
-                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${style.badge}`}>
-                      {style.label}
-                    </span>
-                  </div>
+                <div className="p-5">
+                  <p className="font-fredoka text-2xl text-gray-800 leading-none">{child.name}</p>
+                  <p className="text-gray-400 text-sm font-semibold mt-1 mb-3">
+                    {age} an{age > 1 ? "s" : ""}
+                    {child.gender === "boy" ? " · 👦" : child.gender === "girl" ? " · 👧" : ""}
+                  </p>
+                  <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${style.badge}`}>
+                    {style.emoji} {style.label}
+                  </span>
                 </div>
               </button>
             );
           })}
 
-          {/* Add child card */}
+          {/* Add child */}
           <button
             onClick={() => setShowModal(true)}
-            className="rounded-3xl border-2 border-dashed border-amber-300 bg-amber-50/50 hover:bg-amber-100/60 hover:border-amber-400 transition-all flex flex-col items-center justify-center gap-2 min-h-[180px] text-amber-400 hover:text-amber-500"
+            className="rounded-3xl border-3 border-dashed border-purple-200 bg-white/60 hover:bg-white hover:border-purple-400 transition-all duration-200 flex flex-col items-center justify-center gap-3 min-h-[220px] group"
           >
-            <span className="text-4xl font-light">+</span>
-            <span className="text-sm font-semibold">Ajouter un enfant</span>
+            <div className="w-16 h-16 rounded-full bg-purple-100 group-hover:bg-purple-200 flex items-center justify-center transition-colors">
+              <span className="text-3xl text-purple-400 font-light">+</span>
+            </div>
+            <span className="text-sm font-bold text-purple-400 group-hover:text-purple-600 transition-colors">
+              Ajouter un enfant
+            </span>
           </button>
         </div>
       </main>
