@@ -1,7 +1,8 @@
 from sqlmodel import SQLModel, create_engine, Session
 from .config import settings
 
-engine = create_engine(settings.database_url, echo=False)
+_connect_args = {"sslmode": "require"} if settings.database_url.startswith("postgresql") else {}
+engine = create_engine(settings.database_url, echo=False, connect_args=_connect_args)
 
 
 def create_db_and_tables():
