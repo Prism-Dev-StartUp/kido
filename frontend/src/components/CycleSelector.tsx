@@ -9,8 +9,8 @@ const CYCLES: {
     label: "Éveil",
     ages: "0 – 3 ans",
     icon: "🌱",
-    gradient: "from-pink-400 to-fuchsia-500",
-    ring: "ring-pink-400",
+    gradient: "from-amber-400 to-orange-500",
+    ring: "ring-amber-400",
     desc: "Couleurs, sons, sensorialité",
   },
   {
@@ -18,8 +18,8 @@ const CYCLES: {
     label: "Maternelle",
     ages: "3 – 6 ans",
     icon: "🎈",
-    gradient: "from-violet-400 to-indigo-500",
-    ring: "ring-violet-400",
+    gradient: "from-[#01B273] to-teal-700",
+    ring: "ring-[#01B273]",
     desc: "Lettres, formes, chiffres",
   },
   {
@@ -27,8 +27,8 @@ const CYCLES: {
     label: "Primaire",
     ages: "6 – 12 ans",
     icon: "🚀",
-    gradient: "from-cyan-400 to-blue-500",
-    ring: "ring-cyan-400",
+    gradient: "from-blue-500 to-[#021526]",
+    ring: "ring-blue-500",
     desc: "Calcul, lecture, sciences",
   },
 ];
@@ -51,11 +51,11 @@ export default function CycleSelector({ value, onChange, birthYear }: Props) {
 
   return (
     <div>
-      <p className="text-xs font-extrabold text-purple-400 uppercase tracking-wider mb-1">
+      <p className="text-xs font-extrabold text-[#01B273] uppercase tracking-wider mb-1">
         Niveau d'activités
       </p>
       <p className="text-xs text-gray-400 font-semibold mb-3">
-        Auto : <span className="text-purple-500 font-bold capitalize">{auto}</span> — tu peux personnaliser
+        Auto : <span className="text-[#01B273] font-bold capitalize">{auto}</span> — tu peux personnaliser
       </p>
       <div className="grid grid-cols-3 gap-3">
         {CYCLES.map((c) => {
@@ -72,7 +72,7 @@ export default function CycleSelector({ value, onChange, birthYear }: Props) {
               }`}
             >
               <div className="text-2xl mb-1">{c.icon}</div>
-              <div className={`font-fredoka text-base ${selected ? "text-white" : "text-gray-700"}`}>
+              <div className={`font-fredoka text-base ${selected ? "text-white" : "text-[#021526]"}`}>
                 {c.label}
               </div>
               <div className={`text-xs font-bold ${selected ? "text-white/80" : "text-gray-400"}`}>

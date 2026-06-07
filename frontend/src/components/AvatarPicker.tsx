@@ -25,7 +25,7 @@ interface Props {
 export default function AvatarPicker({ value, onChange }: Props) {
   return (
     <div>
-      <p className="text-xs font-extrabold text-purple-400 uppercase tracking-wider mb-3">Choisis un avatar</p>
+      <p className="text-xs font-extrabold text-[#01B273] uppercase tracking-wider mb-3">Choisis un avatar</p>
       <div className="grid grid-cols-8 gap-2">
         {AVATARS.map(({ emoji, label }) => (
           <button
@@ -35,8 +35,8 @@ export default function AvatarPicker({ value, onChange }: Props) {
             onClick={() => onChange(emoji)}
             className={`text-2xl rounded-2xl p-2 transition-all duration-150 hover:scale-125 ${
               value === emoji
-                ? "bg-purple-100 ring-3 ring-purple-400 scale-125 shadow-md"
-                : "hover:bg-purple-50"
+                ? "bg-emerald-100 ring-3 ring-[#01B273] scale-125 shadow-md"
+                : "hover:bg-emerald-50"
             }`}
           >
             {emoji}

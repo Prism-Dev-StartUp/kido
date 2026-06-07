@@ -19,7 +19,7 @@ interface Props {
 const GENDERS = [
   { value: "boy",   label: "Garçon", icon: "👦", color: "from-blue-400 to-sky-500" },
   { value: "girl",  label: "Fille",  icon: "👧", color: "from-pink-400 to-rose-500" },
-  { value: "other", label: "Autre",  icon: "🧒", color: "from-violet-400 to-purple-500" },
+  { value: "other", label: "Autre",  icon: "🧒", color: "from-[#01B273] to-teal-600" },
 ];
 
 const currentYear = new Date().getFullYear();
@@ -72,7 +72,7 @@ export default function ChildFormModal({ onClose, onSubmit }: Props) {
               <>
                 {/* Prénom */}
                 <div>
-                  <label className="block text-xs font-extrabold text-purple-400 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-extrabold text-[#01B273] uppercase tracking-wider mb-2">
                     Prénom *
                   </label>
                   <input
@@ -88,13 +88,13 @@ export default function ChildFormModal({ onClose, onSubmit }: Props) {
 
                 {/* Année de naissance */}
                 <div>
-                  <label className="block text-xs font-extrabold text-purple-400 uppercase tracking-wider mb-3">
+                  <label className="block text-xs font-extrabold text-[#01B273] uppercase tracking-wider mb-3">
                     Année de naissance *
                   </label>
-                  <div className="bg-purple-50 rounded-2xl p-4">
+                  <div className="bg-emerald-50 rounded-2xl p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="font-fredoka text-4xl text-purple-600">{form.birth_year}</span>
-                      <span className="bg-purple-600 text-white font-extrabold px-4 py-2 rounded-xl text-sm">
+                      <span className="font-fredoka text-4xl text-[#01B273]">{form.birth_year}</span>
+                      <span className="bg-[#01B273] text-white font-extrabold px-4 py-2 rounded-xl text-sm">
                         {age === 0 ? "< 1 an" : `${age} an${age > 1 ? "s" : ""}`}
                       </span>
                     </div>
@@ -104,7 +104,7 @@ export default function ChildFormModal({ onClose, onSubmit }: Props) {
                       max={currentYear}
                       value={form.birth_year}
                       onChange={(e) => setForm({ ...form, birth_year: Number(e.target.value), preferred_cycle: null })}
-                      className="w-full accent-purple-600"
+                      className="w-full accent-[#01B273]"
                     />
                     <div className="flex justify-between text-xs text-gray-400 font-semibold mt-1">
                       <span>{currentYear - 12}</span>
@@ -115,7 +115,7 @@ export default function ChildFormModal({ onClose, onSubmit }: Props) {
 
                 {/* Genre */}
                 <div>
-                  <label className="block text-xs font-extrabold text-purple-400 uppercase tracking-wider mb-3">
+                  <label className="block text-xs font-extrabold text-[#01B273] uppercase tracking-wider mb-3">
                     Genre
                   </label>
                   <div className="grid grid-cols-3 gap-3">
@@ -144,7 +144,7 @@ export default function ChildFormModal({ onClose, onSubmit }: Props) {
                   type="button"
                   onClick={() => setStep(2)}
                   disabled={!form.name}
-                  className="w-full kido-gradient text-white font-extrabold py-4 rounded-2xl text-base hover:opacity-90 transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-purple-200"
+                  className="w-full kido-gradient text-white font-extrabold py-4 rounded-2xl text-base hover:opacity-90 transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-emerald-200"
                 >
                   Continuer →
                 </button>
@@ -154,10 +154,10 @@ export default function ChildFormModal({ onClose, onSubmit }: Props) {
             {step === 2 && (
               <>
                 {/* Preview */}
-                <div className="flex items-center gap-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-4 border border-purple-100">
+                <div className="flex items-center gap-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-4 border border-emerald-100">
                   <span className="text-5xl">{form.avatar}</span>
                   <div>
-                    <p className="font-fredoka text-2xl text-gray-800">{form.name}</p>
+                    <p className="font-fredoka text-2xl text-[#021526]">{form.name}</p>
                     <p className="text-sm text-gray-400 font-semibold">
                       {age} an{age > 1 ? "s" : ""} · {form.birth_year}
                     </p>
@@ -183,7 +183,7 @@ export default function ChildFormModal({ onClose, onSubmit }: Props) {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="flex-1 kido-gradient text-white font-extrabold py-4 rounded-2xl hover:opacity-90 transition disabled:opacity-40 shadow-lg shadow-purple-200"
+                    className="flex-1 kido-gradient text-white font-extrabold py-4 rounded-2xl hover:opacity-90 transition disabled:opacity-40 shadow-lg shadow-emerald-200"
                   >
                     {loading ? "..." : "Créer le profil"}
                   </button>

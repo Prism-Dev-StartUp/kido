@@ -8,6 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Stack :** FastAPI (Python 3.12) + React 18 + TypeScript + Phaser.js (jeux 2D) + SQLite/SQLModel.
 
+**Design :** Palette `#01B273` (vert) + `#021526` (marine foncé). Polices : **Baloo 2** (titres/display) + **Poppins** (corps), chargées via Google Fonts. Background global `#EFF9F5`. Classes utilitaires dans `index.css` : `.kido-gradient`, `.kido-text`, `.kido-input`, `.btn-primary`, `.card-bubble`. Cycles : Éveil = ambre/orange, Maternelle = vert (#01B273), Primaire = bleu → marine (#021526).
+
 ## Commands
 
 ### Backend
@@ -34,7 +36,7 @@ npm run build     # Build de production
 npm run lint      # ESLint
 ```
 
-> Note : Node 18 requis (incompatible avec create-vite v5+ et @tailwindcss/vite). Tailwind v4 est configuré via PostCSS (`postcss.config.js`).
+> Note : Node 18 requis (incompatible avec create-vite v5+ et @tailwindcss/vite). Tailwind v4 est configuré via PostCSS (`postcss.config.js`). Les couleurs de marque sont déclarées dans `tailwind.config.js` (`kido-green`, `kido-dark`).
 
 ## Architecture
 

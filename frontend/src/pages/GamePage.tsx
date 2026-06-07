@@ -6,9 +6,9 @@ import { useChild } from "../contexts/ChildContext";
 import { Game } from "../types";
 
 const CYCLE_GRADIENT: Record<string, string> = {
-  eveil:      "from-pink-400 via-rose-400 to-fuchsia-500",
-  maternelle: "from-violet-400 via-purple-500 to-indigo-500",
-  primaire:   "from-cyan-400 via-sky-500 to-blue-500",
+  eveil:      "from-amber-400 via-orange-400 to-orange-500",
+  maternelle: "from-[#01B273] via-teal-500 to-teal-700",
+  primaire:   "from-blue-500 via-blue-700 to-[#021526]",
 };
 
 export default function GamePage() {
@@ -33,21 +33,33 @@ export default function GamePage() {
     setState("playing");
     startTime.current = Date.now();
 
-    const sceneMap: Record<string, () => Promise<{ default: typeof Phaser.Scene }>> = {
-      ColorSortScene:  () => import("../games/eveil/ColorSortScene"),
-      ShapeMatchScene: () => import("../games/maternelle/ShapeMatchScene"),
-      NumberCountScene:() => import("../games/primaire/NumberCountScene"),
-    };
-    const loader = sceneMap[game.phaser_scene_key];
-    if (!loader) return;
-    const { default: SceneClass } = await loader();
+    let SceneClass: typeof Phaser.Scene;
+
+    if (game.phaser_scene_key.startsWith("Grammar")) {
+      const mod = await import("../games/primaire/GrammarClassifierScene");
+      mod.setGrammarKey(game.phaser_scene_key);
+      SceneClass = mod.default;
+    } else {
+      const sceneMap: Record<string, () => Promise<{ default: typeof Phaser.Scene }>> = {
+        ColorSortScene:   () => import("../games/eveil/ColorSortScene"),
+        ShapeMatchScene:  () => import("../games/maternelle/ShapeMatchScene"),
+        LetterHuntScene:  () => import("../games/maternelle/LetterHuntScene"),
+        NumberCountScene: () => import("../games/primaire/NumberCountScene"),
+        AdditionScene:    () => import("../games/primaire/AdditionScene"),
+        WorldFlagsScene:  () => import("../games/primaire/WorldFlagsScene"),
+      };
+      const loader = sceneMap[game.phaser_scene_key];
+      if (!loader) return;
+      const mod = await loader();
+      SceneClass = mod.default;
+    }
 
     gameRef.current = new Phaser.Game({
       type: Phaser.AUTO,
       parent: containerRef.current,
       width: 800,
       height: 500,
-      backgroundColor: "#faf5ff",
+      backgroundColor: "#EFF9F5",
       scene: SceneClass,
       scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
     });
@@ -55,9 +67,11 @@ export default function GamePage() {
     (gameRef.current as unknown as Record<string, unknown>).onComplete = async (score: number) => {
       gameRef.current?.destroy(true);
       const elapsed = Math.floor((Date.now() - startTime.current) / 1000);
-      await gamesAPI.saveProgress(game.id, activeChild.id, {
-        score, completed: true, time_spent_seconds: elapsed,
-      });
+      try {
+        await gamesAPI.saveProgress(game.id, activeChild.id, {
+          score, completed: true, time_spent_seconds: elapsed,
+        });
+      } catch { /* progression non bloquante */ }
       setFinalScore(score);
       setState("finished");
     };
@@ -65,10 +79,10 @@ export default function GamePage() {
 
   if (!game) return null;
 
-  const grad = CYCLE_GRADIENT[game.cycle] || "from-violet-400 to-purple-600";
+  const grad = CYCLE_GRADIENT[game.cycle] || "from-[#021526] to-[#01B273]";
 
   return (
-    <div className="min-h-screen bg-gray-950 flex flex-col">
+    <div className="min-h-screen bg-[#021526] flex flex-col">
       {/* Top bar */}
       <div className={`bg-gradient-to-r ${grad} px-6 py-3 flex items-center gap-4`}>
         <button
@@ -102,20 +116,18 @@ export default function GamePage() {
             <button
               onClick={startGame}
               className={`bg-gradient-to-r ${grad} text-white font-extrabold px-14 py-5 rounded-2xl text-xl shadow-2xl hover:opacity-90 hover:scale-105 transition-all`}
-              style={{ fontFamily: "'Nunito', sans-serif" }}
+              style={{ fontFamily: "'Poppins', sans-serif" }}
             >
               C'est parti !
             </button>
           </div>
         )}
 
-        {/* Game */}
-        {state === "playing" && (
-          <div
-            ref={containerRef}
-            className="w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10"
-          />
-        )}
+        {/* Game container — always mounted so containerRef is never null */}
+        <div
+          ref={containerRef}
+          className={`w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10 ${state === "playing" ? "" : "hidden"}`}
+        />
 
         {/* Results */}
         {state === "finished" && (
@@ -142,14 +154,14 @@ export default function GamePage() {
             <div className="flex gap-3 justify-center">
               <button
                 onClick={() => setState("intro")}
-                className="border-2 border-gray-700 text-gray-300 hover:border-gray-500 font-bold px-6 py-3 rounded-2xl transition"
+                className="border-2 border-white/20 text-gray-300 hover:border-white/40 font-bold px-6 py-3 rounded-2xl transition"
               >
                 Rejouer
               </button>
               <button
                 onClick={() => navigate(-1)}
                 className={`bg-gradient-to-r ${grad} text-white font-extrabold px-6 py-3 rounded-2xl hover:opacity-90 transition shadow-lg`}
-                style={{ fontFamily: "'Nunito', sans-serif" }}
+                style={{ fontFamily: "'Poppins', sans-serif" }}
               >
                 Autres jeux →
               </button>
